@@ -8,11 +8,11 @@ export class Category {
   @Prop()
   name: string;
 
-  @Prop()
+  @Prop({ default: '' })
   avatarUrl: string;
 
-  @Prop()
-  products: any[];
+  @Prop({ default: false })
+  status: boolean;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

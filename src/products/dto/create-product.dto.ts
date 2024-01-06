@@ -1,8 +1,14 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
   name: string;
+
+  @IsOptional()
+  avatarUrl: string;
+
+  @IsOptional()
+  description: string;
 
   @IsString()
   price: string;
@@ -12,4 +18,7 @@ export class CreateProductDto {
 
   @IsString()
   categoryName: string;
+
+  @IsOptional()
+  status: boolean;
 }

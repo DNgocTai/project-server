@@ -13,11 +13,23 @@ export class CategoriesService {
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const createdCategory = this.categoryModel.create(createCategoryDto);
-    return createCategoryDto;
+    return createdCategory;
   }
 
-  async findAll(): Promise<Category[]> {
-    return this.categoryModel.find();
+  async findAll(name?: any): Promise<Category[]> {
+    if (name) {
+      return this.categoryModel.find({ name: name });
+    }
+    return this.categoryModel.aggregate([
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'name',
+          foreignField: 'categoryName',
+          as: 'product',
+        },
+      },
+    ]);
   }
 
   async findOne(id: string): Promise<Category> {
@@ -28,7 +40,7 @@ export class CategoriesService {
     id: string,
     updateCategoryDto: UpdateCategoryDto,
   ): Promise<Category> {
-    const updatedCategory = this.categoryModel.findByIdAndUpdate(
+    const updatedCategory = this.categoryModel.findOneAndUpdate(
       { _id: id },
       updateCategoryDto,
     );
@@ -38,9 +50,5 @@ export class CategoriesService {
   async remove(id: string) {
     const deletedCategory = this.categoryModel.findByIdAndDelete({ _id: id });
     return deletedCategory;
-  }
-
-  addProductToCategory(product) {
-    return this.categoryModel.findOne({ name: product.name });
   }
 }

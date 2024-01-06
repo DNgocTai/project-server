@@ -29,11 +29,11 @@ export class ProductsService {
     id: string,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    const updatedProduct = this.productModel.findOneAndUpdate(
+    const updatedProd = this.productModel.findOneAndUpdate(
       { _id: id },
       updateProductDto,
     );
-    return updatedProduct;
+    return updatedProd;
   }
 
   async remove(id: string) {

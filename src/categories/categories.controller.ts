@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Product } from 'src/products/schema/product.schema';
 import { Category } from './schema/category.schema';
 
 @Controller('categories')
@@ -19,14 +20,14 @@ export class CategoriesController {
 
   @Post()
   async create(
-    @Body() createCategoryDto: CreateCategoryDto,
+    @Body(ValidationPipe) createCategoryDto: CreateCategoryDto,
   ): Promise<Category> {
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
-  async findAll(): Promise<Category[]> {
-    return this.categoriesService.findAll();
+  async findAll(@Query('name') name?: any): Promise<Category[]> {
+    return this.categoriesService.findAll(name);
   }
 
   @Get(':id')
@@ -37,9 +38,10 @@ export class CategoriesController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
+    @Body(ValidationPipe) updateCategoryDto: UpdateCategoryDto,
   ): Promise<Category> {
-    return this.categoriesService.update(id, updateCategoryDto);
+    this.categoriesService.update(id, updateCategoryDto);
+    return this.categoriesService.findOne(id);
   }
 
   @Delete(':id')
