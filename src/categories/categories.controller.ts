@@ -40,7 +40,7 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body(ValidationPipe) updateCategoryDto: UpdateCategoryDto,
   ): Promise<Category> {
-    this.categoriesService.update(id, updateCategoryDto);
+    await this.categoriesService.update(id, updateCategoryDto);
     return this.categoriesService.findOne(id);
   }
 

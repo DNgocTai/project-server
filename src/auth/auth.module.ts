@@ -7,6 +7,8 @@ import { jwtConstants } from './constants';
 import { UsersService } from 'src/users/users.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/users/schemas/user.schema';
+import { PaymentModule } from 'src/payment/payment.module';
+import { Payment, PaymentSchema } from 'src/payment/schema/payment.schema';
 
 @Module({
   imports: [

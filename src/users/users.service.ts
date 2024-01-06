@@ -15,14 +15,73 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userMdl.find();
+    return this.userMdl.aggregate([
+      {
+        $lookup: {
+          from: 'carts',
+          localField: '_id',
+          foreignField: 'userId',
+          as: 'carts',
+        },
+      },
+      {
+        $lookup: {
+          from: 'addresses',
+          localField: '_id',
+          foreignField: 'userId',
+          as: 'addresses',
+        },
+      },
+      {
+        $lookup: {
+          from: 'payments',
+          localField: '_id',
+          foreignField: 'userId',
+          as: 'payments',
+        },
+      },
+    ]);
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.userMdl.findOne({ username: username });
+    return this.userMdl.findOne({ username });
   }
 
-  async findUserById(id: string): Promise<User | undefined> {
+  async findUserByEmail(username: string): Promise<any> {
+    return this.userMdl
+      .aggregate([
+        { $match: { $or: [{ username: username }] } },
+        {
+          $lookup: {
+            from: 'carts',
+            localField: '_id',
+            foreignField: 'userId',
+            as: 'carts',
+          },
+        },
+        {
+          $lookup: {
+            from: 'addresses',
+            localField: '_id',
+            foreignField: 'userId',
+            as: 'addresses',
+          },
+        },
+        {
+          $lookup: {
+            from: 'payments',
+            localField: '_id',
+            foreignField: 'userId',
+            as: 'payments',
+          },
+        },
+      ])
+      .then((res) => {
+        return res[0];
+      });
+  }
+
+  async findUserById(id: string): Promise<User> {
     return this.userMdl.findOne({ _id: id });
   }
 

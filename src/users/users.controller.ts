@@ -32,7 +32,7 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.userSrv.findOne(id);
+    return this.userSrv.findUserById(id);
   }
 
   @Patch(':id')
@@ -40,7 +40,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body(ValidationPipe) UpdateUserDto: UpdateUserDto,
   ) {
-    this.userSrv.update(id, UpdateUserDto);
+    await this.userSrv.update(id, UpdateUserDto);
     return this.userSrv.findUserById(id);
   }
 

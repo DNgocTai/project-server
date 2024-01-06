@@ -28,6 +28,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   getProfile(@Request() req) {
-    return this.userSrv.findOne(req.user.username);
+    return this.userSrv.findUserByEmail(req.user.username);
   }
 }

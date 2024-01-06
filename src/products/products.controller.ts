@@ -46,7 +46,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body(ValidationPipe) updateProductDto: UpdateProductDto,
   ) {
-    this.productsService.update(id, updateProductDto);
+    await this.productsService.update(id, updateProductDto);
     return this.productsService.findOne(id);
   }
 

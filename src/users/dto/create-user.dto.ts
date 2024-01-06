@@ -14,10 +14,13 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
+  @IsOptional()
   avatarUrl: string;
 
+  @IsOptional()
   phoneNumber: string;
 
+  @IsOptional()
   cash?: number;
 
   @IsOptional()

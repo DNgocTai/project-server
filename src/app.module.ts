@@ -8,6 +8,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CartModule } from './cart/cart.module';
+import { AddressModule } from './address/address.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -16,11 +18,13 @@ import { CartModule } from './cart/cart.module';
     CategoriesModule,
     AuthModule,
     UsersModule,
+    CartModule,
     MongooseModule.forRoot(
       'mongodb+srv://dainndinh:NOBskPG2hFhjhXs7@grocery-coffee-db.hvuq6lz.mongodb.net/',
       { dbName: 'grocery-coffee' },
     ),
-    CartModule,
+    AddressModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

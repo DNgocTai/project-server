@@ -31,8 +31,8 @@ export class CartController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-    this.cartService.update(id, updateCartDto);
+  async update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
+    await this.cartService.update(id, updateCartDto);
     return this.cartService.findOne(id);
   }
 
