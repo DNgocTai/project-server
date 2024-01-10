@@ -1,5 +1,3 @@
-import { ObjectId } from 'mongoose';
-
 export class CreateCartDto {
   userId: string;
   productId: string;

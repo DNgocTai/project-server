@@ -4,13 +4,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
+import * as bcrypt from 'bcrypt';
 
 Injectable();
 export class UsersService {
   constructor(@InjectModel(User.name) private readonly userMdl: Model<User>) {}
-
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = this.userMdl.create(createUserDto);
+    const hash = await bcrypt.hash(createUserDto.password, 10);
+    const createdUser = this.userMdl.create({
+      ...createUserDto,
+      password: hash,
+    });
     return createdUser;
   }
 
@@ -43,7 +47,7 @@ export class UsersService {
     ]);
   }
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findOne(username: any): Promise<User | undefined> {
     return this.userMdl.findOne({ username });
   }
 
@@ -86,9 +90,10 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const hash = await bcrypt.hash(updateUserDto.password, 10);
     const updatedUser = this.userMdl.findOneAndUpdate(
       { _id: id },
-      updateUserDto,
+      { ...updateUserDto, password: hash },
     );
     return updatedUser;
   }

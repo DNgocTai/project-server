@@ -12,10 +12,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schemas/user.schema';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private userSrv: UsersService) {}
+
+  @Post('/reset-password')
+  async findOneByUsername(@Body('username') username: string): Promise<any> {
+    return this.userSrv.findOne(username);
+  }
 
   @Post()
   async create(

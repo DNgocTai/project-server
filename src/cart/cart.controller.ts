@@ -6,10 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import mongoose from 'mongoose';
 
 @Controller('cart')
 export class CartController {
@@ -18,6 +22,12 @@ export class CartController {
   @Post()
   create(@Body() createCartDto: CreateCartDto) {
     return this.cartService.create(createCartDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/user')
+  findAllByUser(@Request() req: any) {
+    return this.cartService.findAllByUser(req.user.sub);
   }
 
   @Get()

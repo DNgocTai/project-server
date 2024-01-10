@@ -16,6 +16,7 @@ import { Payment, PaymentSchema } from 'src/payment/schema/payment.schema';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
+      signOptions: { expiresIn: 60 },
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
