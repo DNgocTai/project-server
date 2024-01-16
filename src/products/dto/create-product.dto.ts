@@ -7,9 +7,6 @@ export class CreateProductDto {
   @IsOptional()
   avatarUrl: string;
 
-  @IsOptional()
-  description: string;
-
   @IsString()
   price: string;
 

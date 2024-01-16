@@ -9,14 +9,23 @@ export class Cart {
   @Prop({ type: mongoose.Schema.ObjectId, required: [true] })
   userId: ObjectId;
 
-  @Prop([{ type: mongoose.Schema.ObjectId, required: [true] }])
-  productId: ObjectId;
+  @Prop({ require: true })
+  fullName: string;
 
-  @Prop({ default: 1 })
-  quantity: number;
+  @Prop()
+  phoneNumber: string;
 
-  @Prop({ default: 0 })
-  total: number;
+  @Prop([{ type: Object, required: [true], default: [] }])
+  products: [Object];
+
+  @Prop({ required: true })
+  address: string;
+
+  @Prop({ required: true })
+  totalQty: number;
+
+  @Prop({ required: true })
+  totalAmount: number;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);

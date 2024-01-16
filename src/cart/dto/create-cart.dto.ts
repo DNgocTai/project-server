@@ -1,6 +1,9 @@
 export class CreateCartDto {
   userId: string;
-  productId: string;
-  quantity?: string;
-  total?: string;
+  fullName: string;
+  phoneNumber: string;
+  products: [object];
+  address: string;
+  totalQty: string;
+  totalAmount: string;
 }

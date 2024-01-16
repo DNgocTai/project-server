@@ -11,11 +11,8 @@ export class Product {
   @Prop({ default: '' })
   avatarUrl: string;
 
-  @Prop({ default: '' })
-  description: string;
-
   @Prop()
-  price: number;
+  price: string;
 
   @Prop()
   star: string;
@@ -23,7 +20,7 @@ export class Product {
   @Prop()
   categoryName: string;
 
-  @Prop({ default: true })
+  @Prop({ default: false })
   status: boolean;
 }
 

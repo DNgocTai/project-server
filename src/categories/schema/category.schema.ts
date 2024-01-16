@@ -11,6 +11,12 @@ export class Category {
   @Prop({ default: '' })
   avatarUrl: string;
 
+  @Prop({ default: '' })
+  path: string;
+
+  @Prop({ default: '' })
+  title: string;
+
   @Prop({ default: false })
   status: boolean;
 }

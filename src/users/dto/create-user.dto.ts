@@ -10,7 +10,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   username: string;
 
-  @IsNotEmpty()
   @IsString()
   password: string;
 
@@ -19,9 +18,6 @@ export class CreateUserDto {
 
   @IsOptional()
   phoneNumber: string;
-
-  @IsOptional()
-  cash?: number;
 
   @IsOptional()
   role?: string;

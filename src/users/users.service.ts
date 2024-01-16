@@ -90,11 +90,19 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const hash = await bcrypt.hash(updateUserDto.password, 10);
-    const updatedUser = this.userMdl.findOneAndUpdate(
-      { _id: id },
-      { ...updateUserDto, password: hash },
-    );
+    let updatedUser;
+    if (updateUserDto.password) {
+      const hash = await bcrypt.hash(updateUserDto.password, 10);
+      updatedUser = this.userMdl.findOneAndUpdate(
+        { _id: id },
+        { ...updateUserDto, password: hash },
+      );
+    } else {
+      updatedUser = this.userMdl.findOneAndUpdate(
+        { _id: id },
+        { ...updateUserDto },
+      );
+    }
     return updatedUser;
   }
 

@@ -8,5 +8,11 @@ export class CreateCategoryDto {
   avatarUrl: string;
 
   @IsOptional()
+  path: string;
+
+  @IsOptional()
+  title: string;
+
+  @IsOptional()
   status: boolean;
 }
