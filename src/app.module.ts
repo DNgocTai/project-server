@@ -19,9 +19,12 @@ import { PaymentModule } from './payment/payment.module';
     AuthModule,
     UsersModule,
     CartModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/', {
-      dbName: 'grocery-coffee-db',
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://dainndinh:613ODcUTiU1dsL2a@grocery-coffee-db.hvuq6lz.mongodb.net/',
+      {
+        dbName: 'grocery-coffee',
+      },
+    ),
     AddressModule,
     PaymentModule,
   ],
