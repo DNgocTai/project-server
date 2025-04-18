@@ -20,7 +20,7 @@ import { PaymentModule } from './payment/payment.module';
     UsersModule,
     CartModule,
     MongooseModule.forRoot(
-      'mongodb+srv://dainndinh:613ODcUTiU1dsL2a@grocery-coffee-db.hvuq6lz.mongodb.net/',
+      'mongodb+srv://dainndinh:613ODcUTiU1dsL2a@grocery-coffee-db.hvuq6lz.mongodb.net/?retryWrites=true&w=majority&appName=grocery-coffee-db',
       {
         dbName: 'grocery-coffee',
       },
